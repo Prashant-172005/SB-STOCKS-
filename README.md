@@ -1,55 +1,56 @@
-# 📈 SB Stocks — MERN Paper Trading Platform
+📈 SB Stocks — MERN Paper Trading Platform
 
-A full-stack paper trading web application built with **MongoDB · Express · React · Node.js**.  
-Practice US stock trading with real market data — zero financial risk.
+SB Stocks is a paper trading web application built with the MERN stack (MongoDB, Express, React, Node.js).
+The platform allows users to practice buying and selling US stocks using real market data, without any real financial risk.
 
----
+The goal of this project is to simulate a basic trading environment where users can explore stock prices, place buy or sell orders, track their portfolio, and review transaction history.
 
-## 🗂️ Project Structure
+🗂️ Project Structure
 
-```
+The project is divided into two main parts: the React frontend and the Node.js backend.
+
 SB-STOCKS/
-├── client/                        ← React Frontend
+├── client/                        React frontend
 │   └── src/
-│       ├── components/
-│       │   ├── Navbar.js          ← Responsive nav (user + admin modes)
-│       │   └── ProtectedRoute.js  ← Auth guards
+│       ├── components/            Reusable UI components
+│       │   ├── Navbar.js
+│       │   └── ProtectedRoute.js
 │       ├── context/
-│       │   └── AuthContext.js     ← JWT auth state (localStorage)
-│       ├── pages/
-│       │   ├── LandingPage.js     ← Public marketing page
-│       │   ├── LoginPage.js       ← Sign in
-│       │   ├── RegisterPage.js    ← Sign up
-│       │   ├── HomePage.js        ← Watchlist + stock search
-│       │   ├── ChartPage.js       ← Stock chart + buy/sell order
-│       │   ├── PortfolioPage.js   ← User holdings
-│       │   ├── HistoryPage.js     ← Order history
-│       │   ├── ProfilePage.js     ← Balance + transactions
+│       │   └── AuthContext.js     Authentication state using JWT
+│       ├── pages/                 Application pages
+│       │   ├── LandingPage.js
+│       │   ├── LoginPage.js
+│       │   ├── RegisterPage.js
+│       │   ├── HomePage.js
+│       │   ├── ChartPage.js
+│       │   ├── PortfolioPage.js
+│       │   ├── HistoryPage.js
+│       │   ├── ProfilePage.js
 │       │   └── admin/
-│       │       ├── AdminUsers.js  ← All users + stats
-│       │       ├── AdminOrders.js ← All platform orders
-│       │       └── AdminTx.js     ← All platform transactions
+│       │       ├── AdminUsers.js
+│       │       ├── AdminOrders.js
+│       │       └── AdminTx.js
 │       ├── utils/
-│       │   └── api.js             ← Axios instance + all API calls
-│       └── App.js                 ← Routes
+│       │   └── api.js             Axios setup and API functions
+│       └── App.js                 Main routing file
 │
-├── server/                        ← Node.js + Express Backend
+├── server/                        Express backend
 │   ├── config/
-│   │   └── db.js                  ← MongoDB connection
+│   │   └── db.js                  MongoDB connection setup
 │   ├── models/
-│   │   ├── User.js                ← User schema + bcrypt
-│   │   ├── Order.js               ← Buy/sell orders
-│   │   ├── Portfolio.js           ← Holdings per user
-│   │   └── Transaction.js         ← Deposit/withdraw
+│   │   ├── User.js
+│   │   ├── Order.js
+│   │   ├── Portfolio.js
+│   │   └── Transaction.js
 │   ├── controllers/
-│   │   ├── authController.js      ← Register, login, getMe
-│   │   ├── stockController.js     ← Polygon.io API integration
-│   │   ├── orderController.js     ← Buy/sell logic + balance update
-│   │   ├── portfolioController.js ← Get holdings
-│   │   ├── transactionController.js ← Deposit/withdraw
-│   │   └── adminController.js     ← Admin dashboard data
+│   │   ├── authController.js
+│   │   ├── stockController.js
+│   │   ├── orderController.js
+│   │   ├── portfolioController.js
+│   │   ├── transactionController.js
+│   │   └── adminController.js
 │   ├── middleware/
-│   │   └── authMiddleware.js      ← JWT protect + adminOnly
+│   │   └── authMiddleware.js
 │   ├── routes/
 │   │   ├── authRoutes.js
 │   │   ├── stockRoutes.js
@@ -58,142 +59,47 @@ SB-STOCKS/
 │   │   ├── transactionRoutes.js
 │   │   ├── userRoutes.js
 │   │   └── adminRoutes.js
-│   └── index.js                   ← Express app entry point
+│   └── index.js                   Entry point of the backend server
 │
 ├── database/
-│   ├── seed.js                    ← Seed admin + test users
-│   └── SCHEMA.md                  ← MongoDB collection reference
+│   ├── seed.js                    Script to create test users
+│   └── SCHEMA.md                  MongoDB collection reference
 │
-├── .env.example                   ← Environment variable template
+├── .env.example
 ├── .gitignore
-└── package.json                   ← Root scripts (concurrently)
-```
+└── package.json
 
----
 
-## ⚡ Quick Start
 
-### 1. Clone & Install
-```bash
-git clone <your-repo>
-cd SB-STOCKS
 
-# Install all dependencies at once
-npm run install-all
-```
+Technology Used
 
-### 2. Configure Environment
-```bash
-cp .env.example .env
-```
-Edit `.env`:
-```
-MONGO_URI=mongodb://localhost:27017/sb-stocks
-JWT_SECRET=your_secret_key_here
-POLYGON_API_KEY=your_polygon_api_key     ← Get free at polygon.io
-CLIENT_URL=http://localhost:3000
-```
+Frontend
 
-### 3. Seed the Database
-```bash
-cd database
-node seed.js
-```
-This creates:
-| Role  | Email                  | Password  |
-|-------|------------------------|-----------|
-| Admin | admin@sbstocks.com     | admin123  |
-| User  | alice@example.com      | alice123  |
-| User  | bob@example.com        | bob12345  |
+React
 
-### 4. Run (Development)
-```bash
-# From root — starts both client + server
-npm run dev
-```
-- Frontend: http://localhost:3000  
-- Backend API: http://localhost:5000/api
+React Router
 
----
+Axios
 
-## 🔌 API Endpoints
+Backend
 
-### Auth
-| Method | Endpoint           | Access  | Description       |
-|--------|--------------------|---------|-------------------|
-| POST   | /api/auth/register | Public  | Create account    |
-| POST   | /api/auth/login    | Public  | Login + JWT       |
-| GET    | /api/auth/me       | Private | Current user      |
+Node.js
 
-### Stocks (Polygon.io)
-| Method | Endpoint                     | Description            |
-|--------|------------------------------|------------------------|
-| GET    | /api/stocks/search?query=    | Search stocks          |
-| GET    | /api/stocks/trending         | Top 7 stocks snapshot  |
-| GET    | /api/stocks/quote/:symbol    | Latest price           |
-| GET    | /api/stocks/chart/:symbol    | OHLC chart data        |
-| GET    | /api/stocks/details/:symbol  | Company details        |
+Express.js
 
-### Orders
-| Method | Endpoint            | Description         |
-|--------|---------------------|---------------------|
-| POST   | /api/orders/buy     | Buy shares          |
-| POST   | /api/orders/sell    | Sell shares         |
-| GET    | /api/orders/history | User order history  |
+Database
 
-### Portfolio
-| Method | Endpoint             | Description         |
-|--------|----------------------|---------------------|
-| GET    | /api/portfolio       | All user holdings   |
-| GET    | /api/portfolio/:sym  | Single stock holding|
+MongoDB with Mongoose
 
-### Transactions
-| Method | Endpoint                      | Description           |
-|--------|-------------------------------|-----------------------|
-| POST   | /api/transactions/deposit     | Add virtual funds     |
-| POST   | /api/transactions/withdraw    | Withdraw virtual funds|
-| GET    | /api/transactions             | Transaction history   |
+Authentication
 
-### Admin (Admin only)
-| Method | Endpoint                  | Description         |
-|--------|---------------------------|---------------------|
-| GET    | /api/admin/stats          | Platform stats      |
-| GET    | /api/admin/users          | All users           |
-| DELETE | /api/admin/users/:id      | Delete user         |
-| GET    | /api/admin/orders         | All orders          |
-| GET    | /api/admin/transactions   | All transactions    |
+JWT
 
----
+bcryptjs
 
-## 🛡️ Features
+Other Tools
 
-- **JWT Authentication** — secure token-based auth stored in localStorage
-- **Role-based Access** — user routes vs admin routes enforced on both frontend and backend
-- **Paper Trading** — buy/sell logic with real balance deduction and portfolio updates
-- **Real Market Data** — Polygon.io API for live quotes, OHLC charts, and stock search
-- **Portfolio Tracking** — weighted average buy price, total invested, unrealized P&L
-- **Fund Management** — deposit and withdraw virtual funds with payment mode tracking
-- **Admin Dashboard** — platform-wide stats, user management, all orders & transactions
+nodemon
 
----
-
-## 🔧 Tech Stack
-
-| Layer    | Technology                              |
-|----------|-----------------------------------------|
-| Frontend | React 18, React Router v6, Axios        |
-| Backend  | Node.js, Express.js                     |
-| Database | MongoDB, Mongoose                       |
-| Auth     | JWT (jsonwebtoken), bcryptjs            |
-| Charts   | Custom SVG (lightweight-charts optional)|
-| API      | Polygon.io (free tier)                  |
-| Toasts   | react-hot-toast                         |
-| Dev      | nodemon, concurrently                   |
-
----
-
-## 📝 Notes
-
-- All users start with **$10,000 virtual balance**
-- Polygon.io free tier has rate limits — the app gracefully falls back to mock data
-- For production: add `process.env.NODE_ENV === 'production'` checks and use `.env` secrets manager
+concurrently
